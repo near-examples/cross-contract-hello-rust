@@ -28,7 +28,7 @@ impl Contract {
       .with_static_gas(Gas(5*TGAS))
       .get_greeting();
     
-    return promise.then( // Create a promise to callback query_greeting_callback
+    promise.then( // Create a promise to callback query_greeting_callback
       Self::ext(env::current_account_id())
       .with_static_gas(Gas(5*TGAS))
       .query_greeting_callback()
@@ -66,10 +66,10 @@ impl Contract {
     // Return whether or not the promise succeeded using the method outlined in external.rs
     if call_result.is_err() {
       env::log_str("set_greeting failed...");
-      return false;
+      false
     } else {
       env::log_str("set_greeting was successful!");
-      return true;
+      true
     }
   }
 }
